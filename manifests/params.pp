@@ -49,18 +49,23 @@ class telegraf::params {
   $windows_package_url    = 'https://chocolatey.org/api/v2/'
 
   $outputs = {
-    'influxdb'  => {
-      'urls'     => [ 'http://localhost:8086' ],
-      'database' => 'telegraf',
-      'username' => 'telegraf',
-      'password' => 'metricsmetricsmetrics',
+    'default-influxdb' => {
+      plugin_type        => 'influxdb',
+      options            => {
+        urls     => [ 'http://localhost:8086' ],
+        database => 'telegraf',
+        username => 'telegraf',
+        password => 'metricsmetricsmetrics',
+      }
     }
   }
 
   $inputs = {
-    'cpu'  => {
-      'percpu'   => true,
-      'totalcpu' => true,
+    'default-cpu' => {
+      options       => {
+        percpu   => true,
+        totalcpu => true,
+      }
     }
   }
 }

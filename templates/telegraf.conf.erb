@@ -28,13 +28,13 @@
 #
 # OUTPUTS:
 #
-<%   @_outputs.sort.each do | output, options | -%>
-[[outputs.<%= output %>]]
-<%      unless options == nil -%>
-<%          options.sort.each do | option, value | -%>
+<%   @_outputs.sort.each do | outputname, options | -%>
+[[outputs.<%= ( options.is_a? Hash and options.has_key? 'plugin_type' ) ? options['plugin_type'] : outputname %>]] # <%= outputname %>
+<%        unless options['options'].empty? -%>
+<%              options['options'].sort.each do | option, value | -%>
   <%= option -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
-<%          end -%>
-<%      end -%>
+<%              end -%>
+<%        end unless options.nil? or options['options'].nil? -%>
 <%   end -%>
 <% end -%>
 
@@ -42,12 +42,12 @@
 #
 # INPUTS:
 #
-<%   @_inputs.sort.each do | input, options | -%>
-[[inputs.<%= input %>]]
-<%      unless options == nil -%>
-<%          options.sort.each do | option, value | -%>
+<%   @_inputs.sort.each do | inputname, options | -%>
+[[inputs.<%= ( options.is_a? Hash and options.has_key? 'plugin_type' ) ? options['plugin_type'] : inputname %>]] # <%= inputname %>
+<%        unless options['options'].empty? -%>
+<%              options['options'].sort.each do | option, value | -%>
   <%= option -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
-<%          end -%>
-<%      end -%>
+<%              end -%>
+<%        end unless options.nil? or options['options'].nil? -%>
 <%   end -%>
 <% end -%>

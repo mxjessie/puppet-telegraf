@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*plugin_type*]
+#   String. What type of input plugin to configure; defaults to the name
+#
 # [*options*]
 #   Hash. Plugin options for use the the input template.
 #
@@ -14,24 +17,12 @@
 #   Hash. Some inputs take multiple sections in [[double brackets]].
 
 define telegraf::input (
-  $plugin_type    = $name,
-  $options        = undef,
-  $single_section = undef,
-  $sections       = undef,
+  String $plugin_type            = $name,
+  Optional[Hash] $options        = undef,
+  Optional[Hash] $single_section = undef,
+  Optional[Hash] $sections       = undef,
 ) {
   include telegraf
-
-  if $options {
-    validate_hash($options)
-  }
-
-  if $single_section {
-    validate_hash($single_section)
-  }
-
-  if $sections {
-    validate_hash($sections)
-  }
 
   Class['::telegraf::config']
   -> file {"${telegraf::config_folder}/${name}.conf":

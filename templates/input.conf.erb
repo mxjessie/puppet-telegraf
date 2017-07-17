@@ -1,4 +1,4 @@
-[[inputs.<%= @plugin_type %>]]
+[[inputs.<%= @plugin_type %>]] # <%= @name %>
 <%      unless @options == nil -%>
 <%          @options.sort.each do | option, value | -%>
   <%= option -%> = <% if value.is_a?(String) %>"<%= value %>"<% elsif value.is_a?(Array) %><%= value.inspect %><% else %><%= value %><% end %>
